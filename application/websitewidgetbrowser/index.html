@@ -4,6 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>qx.Website Widget Browser</title>
+  <script src="https://www.promisejs.org/polyfills/promise-6.0.1.min.js"></script>
   <script type="text/javascript">
   var script = location.search.indexOf("source") === -1 ? "q.min.js" : "q-source.js";
   document.write('<scr' + 'ipt type="text/javascript" src="script/' + script + '"></scr' + 'ipt>');
@@ -42,6 +43,7 @@
   <div id="container">
     <div id="content" data-qx-class="qx.ui.website.Tabs" data-qx-config-align="justify" data-qx-config-media-query="(min-width: 930px)">
       <ul>
+        <li data-qx-tabs-page="#asyncChaining-page"><button>asyncChaining</button></li>
         <li data-qx-tabs-page="#button-page"><button>Button</button></li>
         <li data-qx-tabs-page="#calendar-page"><button>Calendar</button></li>
         <li data-qx-tabs-page="#datepicker-page"><button>Date Picker</button></li>
@@ -52,6 +54,11 @@
       </ul>
 
       <div class="qx-tabs-container">
+
+        <div id="asyncChaining-page">
+          <div class="demo-container"></div>
+        </div>
+
         <div id="button-page">
           <div class="demo-container"></div>
         </div>

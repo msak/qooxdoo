@@ -124,9 +124,26 @@ qx.Bootstrap.define("qx.module.Animation", {
      * @param duration {Number?} The duration in milliseconds of the animation,
      *   which will override the duration given in the description.
      * @return {qxWeb} The collection for chaining.
+     * @ignore(Promise)
      */
     animate : function(desc, duration) {
-      qx.module.Animation._animate.bind(this)(desc, duration, false);
+      var func = qx.module.Animation._animate.bind(this, desc, duration, false);
+
+      // create every time a new promise
+      this.$$promise = new Promise(function(fulfill) {
+        // if you have previously created a promise, listen to then
+        if (this.$$promise) {
+          this.$$promise.then(function(){
+            func(fulfill);
+          }.bind(this));
+        }
+
+        // first promise, just call function
+        else {
+          func(fulfill);
+        }
+      }.bind(this));
+
       return this;
     },
 
@@ -153,7 +170,7 @@ qx.Bootstrap.define("qx.module.Animation", {
      *   which will override the duration given in the description.
      * @param reverse {Boolean} <code>true</code>, if the animation should be reversed
      */
-    _animate : function(desc, duration, reverse) {
+    _animate : function(desc, duration, reverse, fulfill) {
       this._forEachElement(function(el, i) {
         // stop all running animations
         if (el.$$animation) {
@@ -186,6 +203,11 @@ qx.Bootstrap.define("qx.module.Animation", {
             }
           }
           self.emit("animationEnd");
+
+
+          if (fulfill) {
+            fulfill();
+          }
         }, el);
       });
     },

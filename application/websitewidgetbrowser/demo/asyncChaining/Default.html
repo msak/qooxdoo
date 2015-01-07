@@ -1,0 +1,31 @@
+<button data-qx-class="qx.ui.website.Button">Start Animation</button>
+
+<div id="aniRect" style="positon:absolute; width: 100px; height:100px; background-color : yellow;"></div>
+
+<script type="text/javascript">
+  q("#asyncChaining-page button").button().on("tap", logEvent("tap"));
+
+  var desc = {
+    'duration': 1500,
+    'timing': 'ease-out',
+    'keep': 100,
+    'keyFrames': {
+      0: { 'height': '250px' },
+      100: { 'height': '120px' }
+    },
+    'repeat': 1,
+    'alternate': false,
+    'delay': 0
+  };
+
+  q("#asyncChaining-page button").on("tap", function() {
+    q("#aniRect")
+      .animate(desc)
+      .setStyle("backgroundColor", "red")
+      .animate(desc)
+      .setStyle("backgroundColor", "green")
+      .animate(desc)
+      .setStyle("backgroundColor", "blue");
+  });
+
+</script>

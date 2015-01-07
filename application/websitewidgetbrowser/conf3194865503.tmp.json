@@ -1,0 +1,9 @@
+{
+    "let": {},
+    "include": [
+        {
+            "path": "./config.json",
+            "bypass-export-list": true
+        }
+    ]
+}

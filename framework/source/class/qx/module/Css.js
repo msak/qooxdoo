@@ -32,14 +32,32 @@ qx.Bootstrap.define("qx.module.Css", {
      * @param name {String} Name of the style property to modify
      * @param value {var} The value to apply
      * @return {qxWeb} The collection for chaining
+     * @ignore(Promise)
      */
     setStyle : function(name, value) {
-      if (/\w-\w/.test(name)) {
-        name = qx.lang.String.camelCase(name);
+      var func = function(name, value) {
+        if (/\w-\w/.test(name)) {
+          name = qx.lang.String.camelCase(name);
+        }
+        this._forEachElement(function(item) {
+          qx.bom.element.Style.set(item, name, value);
+        });
+      }.bind(this, name, value);
+
+      if (!this.$$promise) {
+        func();
       }
-      this._forEachElement(function(item) {
-        qx.bom.element.Style.set(item, name, value);
-      });
+
+      else {
+        this.$$promise =  new Promise(function(fulfill) {
+          this.$$promise.then(function(){
+            window.setTimeout(function(){
+              func();
+              fulfill();
+            }, 0);
+          }.bind(this));
+        }.bind(this));
+      }
       return this;
     },
 
