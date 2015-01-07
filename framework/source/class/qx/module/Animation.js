@@ -158,7 +158,24 @@ qx.Bootstrap.define("qx.module.Animation", {
      * @return {qxWeb} The collection for chaining.
      */
     animateReverse : function(desc, duration) {
-      qx.module.Animation._animate.bind(this)(desc, duration, true);
+      var func = qx.module.Animation._animate.bind(this, desc, duration, true);
+
+
+      // create every time a new promise
+      this.$$promise = new Promise(function(fulfill) {
+        // if you have previously created a promise, listen to then
+        if (this.$$promise) {
+          this.$$promise.then(function(){
+            func(fulfill);
+          }.bind(this));
+        }
+
+        // first promise, just call function
+        else {
+          func(fulfill);
+        }
+      }.bind(this));
+
       return this;
     },
 
