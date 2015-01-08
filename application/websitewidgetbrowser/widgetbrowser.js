@@ -20,6 +20,7 @@
 q.ready(function() {
 
   var demos = {
+    asyncWithoutChaining : ["Default"],
     asyncChaining : ["Default"],
     accordion : ["Default", "Responsive"],
     button : ["Default"],

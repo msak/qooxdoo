@@ -43,6 +43,8 @@
   <div id="container">
     <div id="content" data-qx-class="qx.ui.website.Tabs" data-qx-config-align="justify" data-qx-config-media-query="(min-width: 930px)">
       <ul>
+
+        <li data-qx-tabs-page="#asyncWithoutChaining-page"><button>asyncWithoutChaining</button></li>
         <li data-qx-tabs-page="#asyncChaining-page"><button>asyncChaining</button></li>
         <li data-qx-tabs-page="#button-page"><button>Button</button></li>
         <li data-qx-tabs-page="#calendar-page"><button>Calendar</button></li>
@@ -54,6 +56,10 @@
       </ul>
 
       <div class="qx-tabs-container">
+
+        <div id="asyncWithoutChaining-page">
+          <div class="demo-container"></div>
+        </div>
 
         <div id="asyncChaining-page">
           <div class="demo-container"></div>
